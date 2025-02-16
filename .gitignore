@@ -1,0 +1,16 @@
+# Node.js dependencies
+node_modules/
+.env
+package-lock.json
+
+# Build files
+dist/
+build/
+
+# Logs y caché
+*.log
+.cache/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
