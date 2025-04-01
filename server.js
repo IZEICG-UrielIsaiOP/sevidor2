@@ -12,9 +12,21 @@ const app = express();
 const PORT = process.env.PORT2 || 5002;
 const SECRET_KEY = process.env.SECRET_KEY || "supersecretkey";
 
-// Middleware
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-app.use(bodyParser.json());
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://frontendproyectofinal.onrender.com" 
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("No autorizado por CORS"));
+    }
+  },
+  credentials: true
+}));
 
 // Middleware para logs (Servidor 2, guarda en 'logs2')
 app.use((req, res, next) => {
