@@ -27,8 +27,8 @@ app.use(cors({
   },
   credentials: true
 }));
+app.use(bodyParser.json()); 
 
-// Middleware para logs (Servidor 2, guarda en 'logs2')
 app.use((req, res, next) => {
   const startTime = Date.now();
 
