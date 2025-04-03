@@ -27,7 +27,8 @@ app.use(cors({
   },
   credentials: true
 }));
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
+
 
 app.use((req, res, next) => {
   const startTime = Date.now();
@@ -77,6 +78,12 @@ app.use((req, res, next) => {
   next();
 });
 
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, 
+  max: 100,
+  message: { statusCode: 429, message: "Demasiadas peticiones, intenta más tarde" }
+});
+app.use(limiter);
 app.get("/api/getInfo", (req, res) => {
   res.json({
     nodeVersion: process.version,
